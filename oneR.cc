@@ -3,8 +3,9 @@
  * Authors: Patrick Durgin, Andrew Rocha, and John Tabone
  * Date: 4/1/14
  * Class: CSCI-399
- * Purpose: Implement OneR machine learning algorithm
- * Input: User-selected .arff file
+ * Purpose: Implement OneR machine learning algorithm in C++
+ * Input: User-selected .arff files for classifer training
+ *        and testing
  * Output:  Success and error rate of algorithm
  ****************************************************/
 
@@ -13,12 +14,13 @@
 #include <string>
 #include <vector>
 #include <algorithm>
-#include "strtk.hpp"
+#include "strtk.hpp" //string toolkit --> External library 
+                     //to easily parse comma separated instances
 
 
 using namespace std;
 
-
+//class of each attrib value
 struct Class {
    string name;
    int count;
@@ -28,6 +30,7 @@ struct Class {
    }
 };
 
+//attrib values
 struct value {
    string name;
    int count;
@@ -43,7 +46,7 @@ struct value {
    }
 };
 
-
+//attrib
 struct attribute {
    string name;
    vector<value> values;
@@ -54,17 +57,28 @@ struct attribute {
    }
 };
 
+//rule
 struct rule {
    string attrib_name;
    vector<value> values;
 };
 
+//vector of attribute structs
 vector<attribute> attributes;
+
+//holds our rule
 rule the_rule;  
 
+//total attribs
 int attrib_count = 0;
+
+//total instances
 int instance_count = 0;
+
+//total correct
 int correct = 0;
+
+//total incorrect
 int incorrect = 0;
 
 //prototypes
@@ -101,6 +115,11 @@ int main (void){
 
 }
 
+/* readARFF(string)
+ *
+ * Reads in arff file for classifer training.
+ *
+ */
 void readARFF (string arff){
    
    string line;
@@ -142,6 +161,11 @@ void readARFF (string arff){
    	    
 }
 
+/* getInstances(string)
+ *
+ * Reads in arff file to get instance info.
+ *
+ */
 void getInstances(string arff){
    ifstream myFile;
    string line;
@@ -176,7 +200,11 @@ void getInstances(string arff){
    myFile.close();
 }
      
-
+/* getAttribValueCount(vector<string>)
+ *
+ * Get count of each attrib value in instances.
+ *
+ */
 void getAttribValueCount(vector<string> instance_values){
    //Get count of each possible attribute value 
    for (int i = 0; i < attrib_count-1; i++){
@@ -187,6 +215,11 @@ void getAttribValueCount(vector<string> instance_values){
    }
 }
 
+/* assignClass()
+ *
+ * Assign names from last attrib i.e. class to Class struct
+ *
+ */
 void assignClass(){
    //Assign names from last attrib i.e. class to Class struct
    for (int i = 0; i < attributes[attrib_count-1].values.size(); i++){
@@ -200,6 +233,11 @@ void assignClass(){
    }
 }
 
+/* classCount(vector<string>)
+ *
+ * Get class count for each attribute value
+ *
+ */
 void classCount(vector<string> instance_values){
    
    //Get class count for each attribute value
@@ -220,6 +258,12 @@ void classCount(vector<string> instance_values){
 
 }
 
+/* getMajorityClass()
+ *
+ * Get number value of majority class for every attribute value and
+ * get name of majority class for every attribute value
+ * 
+ */
 void getMajorityClass(){
 
    //Get number value of majority class for every attribute value
@@ -248,7 +292,12 @@ void getMajorityClass(){
   
 }
 
-
+/* getErrorValues()
+ *
+ * Gets error rates for each attribute's rules and total error rate
+ * for each attribute.
+ *
+ */
 void getErrorValues() {
    //Gets error rates for each attribute's rules and total error rate
    //for each attribute
@@ -264,6 +313,12 @@ void getErrorValues() {
    }//i
 
 }
+
+/* getRule()
+ *
+ * Calculates total error rate and gets our rule!
+ *
+ */
 
 void getRule() {
    //Find minimum total error rate for each attribute
@@ -298,6 +353,11 @@ void getRule() {
    
 }
 
+/* testClassifier(string)
+ *
+ * Tests our classifier with the user-inputted test data.
+ *
+ */
 void testClassifier(string test){
    ifstream myFile;
    string line;
