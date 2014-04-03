@@ -1,0 +1,21 @@
+@relation weather.symbolic
+
+@attribute outlook {sunny, overcast, hail, rainy}
+@attribute temperature {unbearable, hot, mild, cool, freezing}
+@attribute humidity {high, normal}
+@attribute windy {TRUE, FALSE}
+@attribute play {yes, no}
+
+@data
+
+hail,hot,high,FALSE,no
+rainy,cool,high,FALSE,yes
+sunny,mild,high,FALSE,no
+overcast,unbearable,high,TRUE,yes
+sunny,cool,normal,FALSE,yes
+hail,freezing,normal,TRUE,no
+rainy,mild,normal,FALSE,yes
+sunny,mild,normal,TRUE,yes
+overcast,mild,high,TRUE,yes
+overcast,hot,normal,FALSE,yes
+rainy,mild,high,TRUE,no
