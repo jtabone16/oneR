@@ -1,5 +1,5 @@
 /****************************************************
- * oneRv2.cc
+ * oneR.cc
  * Authors: Patrick Durgin, Andrew Rocha, and John Tabone
  * Date: 4/1/14
  * Class: CSCI-399
